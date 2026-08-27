@@ -5,356 +5,76 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Apoyando a Taty</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .header {
-            text-align: center;
-            color: white;
-            margin-bottom: 30px;
-        }
-
-        .header h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-
-        .content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-
-        .card {
-            background: white;
-            border-radius: 10px;
-            padding: 25px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        }
-
-        .card h2 {
-            color: #667eea;
-            margin-bottom: 20px;
-            font-size: 1.5em;
-            border-bottom: 2px solid #667eea;
-            padding-bottom: 10px;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            color: #333;
-            font-weight: 600;
-            font-size: 0.95em;
-        }
-
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #e0e0e0;
-            border-radius: 5px;
-            font-size: 1em;
-            font-family: inherit;
-            transition: border-color 0.3s;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: #667eea;
-        }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-        }
-
-        .btn-group {
-            display: flex;
-            gap: 10px;
-            margin-top: 20px;
-        }
-
-        button {
-            flex: 1;
-            padding: 12px;
-            border: none;
-            border-radius: 5px;
-            font-size: 1em;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .btn-primary {
-            background: #667eea;
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background: #5568d3;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
-        }
-
-        .btn-secondary {
-            background: #f44336;
-            color: white;
-        }
-
-        .btn-secondary:hover {
-            background: #d32f2f;
-        }
-
-        .btn-success {
-            background: #4caf50;
-            color: white;
-        }
-
-        .btn-success:hover {
-            background: #45a049;
-        }
-
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        .stat-box {
-            background: #f5f5f5;
-            padding: 15px;
-            border-radius: 5px;
-            text-align: center;
-        }
-
-        .stat-box .number {
-            font-size: 2em;
-            font-weight: bold;
-            color: #667eea;
-        }
-
-        .stat-box .label {
-            color: #666;
-            font-size: 0.9em;
-            margin-top: 5px;
-        }
-
-        .numeros-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
-            gap: 8px;
-            margin-top: 20px;
-        }
-
-        .numero-btn {
-            aspect-ratio: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            background: #f9f9f9;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s;
-            font-size: 0.9em;
-        }
-
-        .numero-btn:hover:not(.vendido) {
-            border-color: #667eea;
-            background: #f0f0ff;
-            transform: scale(1.05);
-        }
-
-        .numero-btn.vendido {
-            background: #667eea;
-            color: white;
-            border-color: #667eea;
-            cursor: not-allowed;
-        }
-
-        .numero-btn.seleccionado {
-            background: #4caf50;
-            color: white;
-            border-color: #4caf50;
-            box-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
-        }
-
-        .tabla-participantes {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-            font-size: 0.95em;
-        }
-
-        .tabla-participantes th {
-            background: #667eea;
-            color: white;
-            padding: 12px;
-            text-align: left;
-            font-weight: 600;
-        }
-
-        .tabla-participantes td {
-            padding: 12px;
-            border-bottom: 1px solid #e0e0e0;
-        }
-
-        .tabla-participantes tr:hover {
-            background: #f5f5f5;
-        }
-
-        .tabla-participantes .numero {
-            font-weight: bold;
-            color: #667eea;
-            font-size: 1.1em;
-        }
-
-        .btn-eliminar {
-            background: #ff6b6b;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 3px;
-            cursor: pointer;
-            font-size: 0.85em;
-        }
-
-        .btn-eliminar:hover {
-            background: #ff5252;
-        }
-
-        .info-rifa {
-            background: #f0f0ff;
-            border-left: 4px solid #667eea;
-            padding: 15px;
-            border-radius: 5px;
-            margin-top: 20px;
-        }
-
-        .info-rifa .label {
-            color: #666;
-            font-size: 0.9em;
-            font-weight: 600;
-        }
-
-        .info-rifa .valor {
-            color: #333;
-            font-size: 1.1em;
-            margin-bottom: 10px;
-        }
-
-        .mensaje {
-            padding: 15px;
-            margin: 15px 0;
-            border-radius: 5px;
-            text-align: center;
-            font-weight: 600;
-        }
-
-        .mensaje.exito {
-            background: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-
-        .mensaje.error {
-            background: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-        }
-
-        .numero-input-group {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-
-        .numero-input-group input {
-            flex: 1;
-        }
-
-        .numero-input-group button {
-            flex: 0.3;
-        }
-
-        .scroll-container {
-            max-height: 400px;
-            overflow-y: auto;
-        }
-
-        .acciones-sorteo {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-top: 20px;
-        }
-
-        @media (max-width: 768px) {
-            .content {
-                grid-template-columns: 1fr;
-            }
-            
-            .numeros-grid {
-                grid-template-columns: repeat(auto-fill, minmax(45px, 1fr));
-            }
-
-            .form-row {
-                grid-template-columns: 1fr;
-            }
-
-            .header h1 {
-                font-size: 1.8em;
-            }
-
-            .acciones-sorteo {
-                grid-template-columns: 1fr;
-            }
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 20px; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .header { text-align: center; color: white; margin-bottom: 30px; }
+        .header h1 { font-size: 2.5em; margin-bottom: 10px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+        .content { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 30px; }
+        .card { background: white; border-radius: 10px; padding: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+        .card h2 { color: #667eea; margin-bottom: 20px; font-size: 1.5em; border-bottom: 2px solid #667eea; padding-bottom: 10px; }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 5px; color: #333; font-weight: 600; font-size: 0.95em; }
+        .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 5px; font-size: 1em; font-family: inherit; transition: border-color 0.3s; }
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus { outline: none; border-color: #667eea; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .checkbox-group { display: flex; align-items: center; gap: 10px; margin-bottom: 15px; }
+        .checkbox-group input[type="checkbox"] { width: 20px; height: 20px; cursor: pointer; }
+        .checkbox-group label { margin: 0; font-weight: 500; }
+        button { padding: 12px; border: none; border-radius: 5px; font-size: 1em; font-weight: 600; cursor: pointer; transition: all 0.3s; }
+        .btn-primary { background: #667eea; color: white; }
+        .btn-primary:hover { background: #5568d3; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4); }
+        .btn-secondary { background: #f44336; color: white; }
+        .btn-secondary:hover { background: #d32f2f; }
+        .btn-success { background: #4caf50; color: white; }
+        .btn-success:hover { background: #45a049; }
+        .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-bottom: 20px; }
+        .stat-box { background: #f5f5f5; padding: 15px; border-radius: 5px; text-align: center; }
+        .stat-box .number { font-size: 2em; font-weight: bold; color: #667eea; }
+        .stat-box .label { color: #666; font-size: 0.9em; margin-top: 5px; }
+        .numeros-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(50px, 1fr)); gap: 8px; margin-top: 20px; }
+        .numero-btn { aspect-ratio: 1; display: flex; align-items: center; justify-content: center; border: 2px solid #333; border-radius: 8px; background: #2196F3; color: white; cursor: pointer; font-weight: 600; transition: all 0.3s; font-size: 0.9em; }
+        .numero-btn:hover { border-color: #0d47a1; background: #1976D2; transform: scale(1.05); box-shadow: 0 3px 8px rgba(33, 150, 243, 0.4); }
+        .numero-btn.vendido { background: #999; color: #fff; border-color: #666; cursor: not-allowed; opacity: 0.6; }
+        .numero-btn.vendido:hover { transform: none; box-shadow: none; }
+        .numero-btn.pagado { background: #4caf50; color: white; border-color: #2e7d32; }
+        .numero-btn.pagado:hover { background: #45a049; border-color: #1b5e20; }
+        .leyenda-colores { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 20px; padding: 15px; background: #f5f5f5; border-radius: 8px; }
+        .leyenda-item { display: flex; align-items: center; gap: 10px; font-size: 0.9em; }
+        .leyenda-color { width: 30px; height: 30px; border-radius: 4px; border: 2px solid #333; }
+        .tabla-participantes { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 0.95em; }
+        .tabla-participantes th { background: #667eea; color: white; padding: 12px; text-align: left; font-weight: 600; }
+        .tabla-participantes td { padding: 12px; border-bottom: 1px solid #e0e0e0; }
+        .tabla-participantes tr:hover { background: #f5f5f5; }
+        .tabla-participantes .numero { font-weight: bold; color: #667eea; font-size: 1.1em; }
+        .estado-pago { padding: 4px 8px; border-radius: 4px; font-size: 0.85em; font-weight: 600; text-align: center; }
+        .pagado { background: #d4edda; color: #155724; }
+        .no-pagado { background: #f8d7da; color: #721c24; }
+        .btn-toggle { padding: 4px 8px; font-size: 0.8em; margin-right: 5px; }
+        .btn-eliminar { background: #ff6b6b; color: white; border: none; padding: 5px 10px; border-radius: 3px; cursor: pointer; font-size: 0.85em; }
+        .btn-eliminar:hover { background: #ff5252; }
+        .scroll-container { max-height: 400px; overflow-y: auto; }
+        .acciones-sorteo { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; }
+        .mensaje { padding: 15px; margin: 15px 0; border-radius: 5px; text-align: center; font-weight: 600; }
+        .mensaje.exito { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .mensaje.error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        @media (max-width: 768px) { .content { grid-template-columns: 1fr; } .stats { grid-template-columns: repeat(2, 1fr); } .numeros-grid { grid-template-columns: repeat(auto-fill, minmax(45px, 1fr)); } .form-row { grid-template-columns: 1fr; } .header h1 { font-size: 1.8em; } .leyenda-colores { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>🎲 Rifa de Números</h1>
-            <p>Gestiona tu rifa de 00 al 99</p>
+            <h1>🎲 Rifa de Números - Control de Pagos</h1>
+            <p>Gestiona tu rifa con control de pagos 00-99</p>
         </div>
 
         <div class="content">
-            <!-- Panel de Configuración -->
             <div class="card">
                 <h2>⚙️ Configuración</h2>
-                
                 <div class="form-group">
                     <label for="nombreRifa">Nombre de la Rifa:</label>
                     <input type="text" id="nombreRifa" placeholder="Ej: Rifa Navideña 2024">
                 </div>
-
                 <div class="form-row">
                     <div class="form-group">
                         <label for="fechaSorteo">Fecha del Sorteo:</label>
@@ -365,66 +85,79 @@
                         <input type="number" id="valorNumero" placeholder="Ej: 5000" min="0">
                     </div>
                 </div>
-
                 <div class="form-group">
-                    <label for="premio">Premio:</label>
-                    <textarea id="premio" rows="3" placeholder="Describe el premio principal"></textarea>
+                    <label for="premio">Premio Principal:</label>
+                    <textarea id="premio" rows="2" placeholder="Describe el premio principal"></textarea>
                 </div>
-
-                <div class="form-group">
-                    <label for="premiosAdicionales">Premios Adicionales:</label>
-                    <textarea id="premiosAdicionales" rows="2" placeholder="Otros premios (segundo, tercero, etc.)"></textarea>
-                </div>
-
                 <button class="btn-primary" onclick="guardarConfiguracion()">💾 Guardar Configuración</button>
-
-                <div id="configInfo" class="info-rifa" style="display: none; margin-top: 20px;">
-                    <div class="label">Información de la Rifa</div>
-                    <div id="infoRifaContent"></div>
-                </div>
             </div>
 
-            <!-- Panel de Participantes -->
             <div class="card">
                 <h2>👥 Registrar Participante</h2>
-
                 <div class="form-group">
                     <label for="nombreParticipante">Nombre del Participante:</label>
                     <input type="text" id="nombreParticipante" placeholder="Nombre completo">
                 </div>
-
-                <div class="numero-input-group">
-                    <input type="number" id="numeroSeleccionado" placeholder="Número (00-99)" min="0" max="99">
-                    <button class="btn-primary" onclick="asignarNumero()">Asignar</button>
+                <div class="form-group">
+                    <label for="numeroSeleccionado">Número (00-99):</label>
+                    <input type="number" id="numeroSeleccionado" placeholder="Número" min="0" max="99">
                 </div>
-
+                <div class="checkbox-group">
+                    <input type="checkbox" id="pagado" checked>
+                    <label for="pagado">✅ Pagado</label>
+                </div>
+                <button class="btn-primary" style="width: 100%;" onclick="asignarNumero()">Asignar Número</button>
                 <div id="mensaje"></div>
-
-                <div class="stats">
-                    <div class="stat-box">
-                        <div class="number" id="totalVendidos">0</div>
-                        <div class="label">Vendidos</div>
-                    </div>
-                    <div class="stat-box">
-                        <div class="number" id="totalDisponibles">100</div>
-                        <div class="label">Disponibles</div>
-                    </div>
-                    <div class="stat-box">
-                        <div class="number" id="totalRecaudado">$0</div>
-                        <div class="label">Recaudado</div>
-                    </div>
-                </div>
-
-                <h3 style="margin-top: 20px; color: #667eea;">Números Disponibles:</h3>
-                <div class="numeros-grid" id="numerosGrid"></div>
             </div>
         </div>
 
-        <!-- Panel de Participantes Registrados -->
+        <div class="card">
+            <h2>📊 Estadísticas</h2>
+            <div class="stats">
+                <div class="stat-box">
+                    <div class="number" id="totalVendidos">0</div>
+                    <div class="label">Total Vendidos</div>
+                </div>
+                <div class="stat-box">
+                    <div class="number" id="totalPagados">0</div>
+                    <div class="label">Pagados</div>
+                </div>
+                <div class="stat-box">
+                    <div class="number" id="totalPendiente">0</div>
+                    <div class="label">Pendientes</div>
+                </div>
+                <div class="stat-box">
+                    <div class="number" id="totalRecaudado">$0</div>
+                    <div class="label">Recaudado</div>
+                </div>
+            </div>
+            <div style="background: #fff3cd; padding: 15px; border-radius: 5px; margin-top: 15px; color: #856404;">
+                <strong>💰 Dinero Pendiente:</strong> <span id="dineroPendiente">$0</span>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>🎲 Grid de Números (Disponibles y Vendidos)</h2>
+            <div class="leyenda-colores">
+                <div class="leyenda-item">
+                    <div class="leyenda-color" style="background: #2196F3; border-color: #333;"></div>
+                    <span>Disponible</span>
+                </div>
+                <div class="leyenda-item">
+                    <div class="leyenda-color" style="background: #4caf50; border-color: #2e7d32;"></div>
+                    <span>Pagado</span>
+                </div>
+                <div class="leyenda-item">
+                    <div class="leyenda-color" style="background: #999; border-color: #666; opacity: 0.6;"></div>
+                    <span>Pendiente</span>
+                </div>
+            </div>
+            <div class="numeros-grid" id="numerosGrid"></div>
+        </div>
+
         <div class="card">
             <h2>📋 Participantes Registrados</h2>
             <button class="btn-secondary" onclick="limpiarTodo()">🗑️ Limpiar Todo</button>
-            
             <div class="scroll-container">
                 <table class="tabla-participantes" id="tablaParticipantes">
                     <thead>
@@ -432,22 +165,19 @@
                             <th>Número</th>
                             <th>Participante</th>
                             <th>Valor</th>
-                            <th>Acción</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
                         </tr>
                     </thead>
-                    <tbody id="cuerpoTabla">
-                    </tbody>
+                    <tbody id="cuerpoTabla"></tbody>
                 </table>
             </div>
             <p style="text-align: center; margin-top: 15px; color: #999;" id="mensajeVacio">No hay participantes registrados</p>
         </div>
 
-        <!-- Panel de Sorteo -->
         <div class="card">
             <h2>🎯 Resultado de la Lotería</h2>
-            
             <p style="color: #666; margin-bottom: 15px;">Ingresa el número ganador de la lotería externa</p>
-            
             <div class="form-row">
                 <div class="form-group">
                     <label for="numeroGanador">Número Ganador (00-99):</label>
@@ -458,20 +188,17 @@
                     <input type="date" id="fechaSorteoLoteria">
                 </div>
             </div>
-
             <div class="acciones-sorteo">
                 <button class="btn-success" onclick="verificarGanador()">🎊 Verificar Ganador</button>
                 <button class="btn-primary" onclick="exportarDatos()">📥 Descargar Datos</button>
             </div>
-
             <div id="resultadoSorteo" style="margin-top: 20px;"></div>
         </div>
     </div>
 
     <script>
-        // Datos en localStorage
         const cargarDatos = () => JSON.parse(localStorage.getItem('rifaDatos')) || {
-            config: { nombre: '', fecha: '', valor: 0, premio: '', premiosAdicionales: '' },
+            config: { nombre: '', fecha: '', valor: 0, premio: '' },
             participantes: []
         };
 
@@ -486,38 +213,28 @@
 
         const guardarConfiguracion = () => {
             const datos = cargarDatos();
+            const fechaInput = document.getElementById('fechaSorteo').value;
+            
+            let fechaCorregida = fechaInput;
+            if (fechaInput) {
+                const partes = fechaInput.split('-');
+                fechaCorregida = `${partes[0]}-${partes[1]}-${partes[2]}`;
+            }
+            
             datos.config = {
                 nombre: document.getElementById('nombreRifa').value,
-                fecha: document.getElementById('fechaSorteo').value,
+                fecha: fechaCorregida,
                 valor: parseInt(document.getElementById('valorNumero').value) || 0,
-                premio: document.getElementById('premio').value,
-                premiosAdicionales: document.getElementById('premiosAdicionales').value
+                premio: document.getElementById('premio').value
             };
             guardarDatos(datos);
             mostrarMensaje('✅ Configuración guardada correctamente');
-            mostrarInfoRifa();
-        };
-
-        const mostrarInfoRifa = () => {
-            const datos = cargarDatos();
-            const { config } = datos;
-            const infoDiv = document.getElementById('configInfo');
-            const contentDiv = document.getElementById('infoRifaContent');
-
-            if (config.nombre || config.fecha || config.premio) {
-                infoDiv.style.display = 'block';
-                contentDiv.innerHTML = `
-                    ${config.nombre ? `<div class="valor"><strong>${config.nombre}</strong></div>` : ''}
-                    ${config.fecha ? `<div class="valor">📅 Sorteo: ${new Date(config.fecha).toLocaleDateString('es-CO')}</div>` : ''}
-                    ${config.valor ? `<div class="valor">💰 Valor: $${config.valor.toLocaleString()}</div>` : ''}
-                    ${config.premio ? `<div class="valor">🎁 Premio: ${config.premio}</div>` : ''}
-                `;
-            }
         };
 
         const asignarNumero = () => {
             const nombre = document.getElementById('nombreParticipante').value.trim();
             const numero = document.getElementById('numeroSeleccionado').value.trim();
+            const pagado = document.getElementById('pagado').checked;
 
             if (!nombre) {
                 mostrarMensaje('Por favor ingresa el nombre del participante', 'error');
@@ -537,14 +254,27 @@
             datos.participantes.push({
                 numero: numero.padStart(2, '0'),
                 nombre: nombre,
-                valor: datos.config.valor
+                valor: datos.config.valor,
+                pagado: pagado
             });
 
             guardarDatos(datos);
             document.getElementById('nombreParticipante').value = '';
             document.getElementById('numeroSeleccionado').value = '';
+            document.getElementById('pagado').checked = true;
             mostrarMensaje(`✅ Número ${numero.padStart(2, '0')} asignado a ${nombre}`);
             actualizar();
+        };
+
+        const togglePago = (numero) => {
+            const datos = cargarDatos();
+            const participante = datos.participantes.find(p => p.numero === numero);
+            if (participante) {
+                participante.pagado = !participante.pagado;
+                guardarDatos(datos);
+                mostrarMensaje(participante.pagado ? '✅ Marcado como pagado' : '⏳ Marcado como pendiente');
+                actualizar();
+            }
         };
 
         const eliminarParticipante = (numero) => {
@@ -560,17 +290,30 @@
         const construirGrid = () => {
             const datos = cargarDatos();
             const numerosVendidos = new Set(datos.participantes.map(p => p.numero));
+            const numerosPagados = new Set(datos.participantes.filter(p => p.pagado).map(p => p.numero));
             const grid = document.getElementById('numerosGrid');
             grid.innerHTML = '';
 
             for (let i = 0; i < 100; i++) {
                 const num = i.toString().padStart(2, '0');
                 const btn = document.createElement('button');
-                btn.className = 'numero-btn' + (numerosVendidos.has(num) ? ' vendido' : '');
+                
+                if (numerosVendidos.has(num)) {
+                    if (numerosPagados.has(num)) {
+                        btn.className = 'numero-btn pagado';
+                    } else {
+                        btn.className = 'numero-btn vendido';
+                    }
+                } else {
+                    btn.className = 'numero-btn';
+                }
+                
                 btn.textContent = num;
                 btn.onclick = () => {
-                    document.getElementById('numeroSeleccionado').value = i;
-                    document.getElementById('nombreParticipante').focus();
+                    if (!numerosVendidos.has(num)) {
+                        document.getElementById('numeroSeleccionado').value = i;
+                        document.getElementById('nombreParticipante').focus();
+                    }
                 };
                 grid.appendChild(btn);
             }
@@ -596,7 +339,11 @@
                     <td class="numero">${p.numero}</td>
                     <td>${p.nombre}</td>
                     <td>$${p.valor.toLocaleString()}</td>
-                    <td><button class="btn-eliminar" onclick="eliminarParticipante('${p.numero}')">Eliminar</button></td>
+                    <td><span class="estado-pago ${p.pagado ? 'pagado' : 'no-pagado'}">${p.pagado ? '✅ Pagado' : '⏳ Pendiente'}</span></td>
+                    <td>
+                        <button class="btn-toggle btn-success" onclick="togglePago('${p.numero}')">Cambiar</button>
+                        <button class="btn-eliminar" onclick="eliminarParticipante('${p.numero}')">Eliminar</button>
+                    </td>
                 `;
                 tbody.appendChild(tr);
             });
@@ -605,12 +352,16 @@
         const actualizarEstadisticas = () => {
             const datos = cargarDatos();
             const vendidos = datos.participantes.length;
-            const disponibles = 100 - vendidos;
-            const recaudado = datos.participantes.reduce((sum, p) => sum + p.valor, 0);
+            const pagados = datos.participantes.filter(p => p.pagado).length;
+            const pendientes = vendidos - pagados;
+            const recaudado = datos.participantes.filter(p => p.pagado).reduce((sum, p) => sum + p.valor, 0);
+            const pendiente = datos.participantes.filter(p => !p.pagado).reduce((sum, p) => sum + p.valor, 0);
 
             document.getElementById('totalVendidos').textContent = vendidos;
-            document.getElementById('totalDisponibles').textContent = disponibles;
+            document.getElementById('totalPagados').textContent = pagados;
+            document.getElementById('totalPendiente').textContent = pendientes;
             document.getElementById('totalRecaudado').textContent = `$${recaudado.toLocaleString()}`;
+            document.getElementById('dineroPendiente').textContent = `$${pendiente.toLocaleString()}`;
         };
 
         const actualizar = () => {
@@ -633,6 +384,7 @@
             const ganador = datos.participantes.find(p => p.numero === numeroGanador);
 
             if (ganador) {
+                const estado = ganador.pagado ? '✅ PAGADO' : '⚠️ PENDIENTE DE PAGO';
                 div.innerHTML = `
                     <div class="mensaje exito" style="background: #d4edda; color: #155724; border: 2px solid #c3e6cb; padding: 30px; border-radius: 10px;">
                         <div style="font-size: 3em; margin-bottom: 20px;">🎊 ¡¡¡GANADOR!!! 🎊</div>
@@ -642,8 +394,11 @@
                             </span>
                         </div>
                         <div style="font-size: 1.5em; margin-bottom: 15px;">Ganador: <strong>${ganador.nombre}</strong></div>
-                        ${datos.config.premio ? `<div style="font-size: 1.2em; margin: 15px 0; padding: 15px; background: #fff3cd; border-radius: 5px;">🎁 Premio: <strong>${datos.config.premio}</strong></div>` : ''}
-                        ${fechaSorteo ? `<div style="margin-top: 15px; color: #666;">📅 Fecha: ${new Date(fechaSorteo).toLocaleDateString('es-CO')}</div>` : ''}
+                        <div style="font-size: 1.2em; margin: 15px 0; padding: 15px; background: ${ganador.pagado ? '#d4edda' : '#fff3cd'}; border-radius: 5px;">
+                            ${estado}
+                        </div>
+                        ${datos.config.premio ? `<div style="font-size: 1.1em; margin: 15px 0;">🎁 Premio: <strong>${datos.config.premio}</strong></div>` : ''}
+                        ${fechaSorteo ? `<div style="margin-top: 15px; color: #666;">📅 Fecha: ${fechaSorteo}</div>` : ''}
                     </div>
                 `;
             } else {
@@ -651,7 +406,6 @@
                     <div class="mensaje error" style="background: #f8d7da; color: #721c24; border: 2px solid #f5c6cb; padding: 30px; border-radius: 10px;">
                         <div style="font-size: 2em; margin-bottom: 15px;">❌ No hay ganador</div>
                         <div style="font-size: 1.3em;">El número <strong>${numeroGanador}</strong> no fue vendido</div>
-                        <div style="margin-top: 15px; color: #666;">Los números disponibles están listados abajo</div>
                     </div>
                 `;
             }
@@ -659,31 +413,42 @@
 
         const exportarDatos = () => {
             const datos = cargarDatos();
-            let contenido = `RIFA DE NÚMEROS\n`;
+            let contenido = `RIFA DE NÚMEROS - REPORTE COMPLETO\n`;
             contenido += `${datos.config.nombre}\n`;
-            contenido += `${'='.repeat(50)}\n\n`;
+            contenido += `${'='.repeat(60)}\n\n`;
 
-            if (datos.config.fecha) contenido += `Fecha del Sorteo: ${new Date(datos.config.fecha).toLocaleDateString('es-CO')}\n`;
+            if (datos.config.fecha) contenido += `Fecha del Sorteo: ${datos.config.fecha}\n`;
             if (datos.config.valor) contenido += `Valor por Número: $${datos.config.valor.toLocaleString()}\n`;
             if (datos.config.premio) contenido += `Premio Principal: ${datos.config.premio}\n`;
-            contenido += `\n${'='.repeat(50)}\n`;
+            
+            contenido += `\n${'='.repeat(60)}\n`;
             contenido += `PARTICIPANTES REGISTRADOS\n`;
-            contenido += `${'='.repeat(50)}\n\n`;
+            contenido += `${'='.repeat(60)}\n\n`;
 
             datos.participantes.sort((a, b) => a.numero - b.numero).forEach(p => {
-                contenido += `Número: ${p.numero} | ${p.nombre} | $${p.valor.toLocaleString()}\n`;
+                const estado = p.pagado ? '✅ PAGADO' : '⏳ PENDIENTE';
+                contenido += `Número: ${p.numero} | ${p.nombre} | $${p.valor.toLocaleString()} | ${estado}\n`;
             });
 
-            contenido += `\n${'='.repeat(50)}\n`;
-            contenido += `RESUMEN\n`;
-            contenido += `Números Vendidos: ${datos.participantes.length}\n`;
-            contenido += `Números Disponibles: ${100 - datos.participantes.length}\n`;
-            contenido += `Total Recaudado: $${datos.participantes.reduce((sum, p) => sum + p.valor, 0).toLocaleString()}\n`;
+            const pagados = datos.participantes.filter(p => p.pagado).length;
+            const pendientes = datos.participantes.length - pagados;
+            const recaudado = datos.participantes.filter(p => p.pagado).reduce((sum, p) => sum + p.valor, 0);
+            const pendiente = datos.participantes.filter(p => !p.pagado).reduce((sum, p) => sum + p.valor, 0);
 
-            const blob = new Blob([contenido], { type: 'text/plain' });
+            contenido += `\n${'='.repeat(60)}\n`;
+            contenido += `RESUMEN FINANCIERO\n`;
+            contenido += `${'='.repeat(60)}\n`;
+            contenido += `Total Números Vendidos: ${datos.participantes.length}\n`;
+            contenido += `Números Pagos: ${pagados}\n`;
+            contenido += `Números Pendientes: ${pendientes}\n`;
+            contenido += `Total Recaudado: $${recaudado.toLocaleString()}\n`;
+            contenido += `Dinero Pendiente: $${pendiente.toLocaleString()}\n`;
+            contenido += `TOTAL ESPERADO: $${(recaudado + pendiente).toLocaleString()}\n`;
+
+            const blob = new Blob([contenido], { type: 'text/plain; charset=utf-8' });
             const link = document.createElement('a');
             link.href = URL.createObjectURL(blob);
-            link.download = `rifa-${new Date().toISOString().split('T')[0]}.txt`;
+            link.download = `rifa-reporte-${new Date().toISOString().split('T')[0]}.txt`;
             link.click();
         };
 
@@ -694,17 +459,13 @@
                 document.getElementById('fechaSorteo').value = '';
                 document.getElementById('valorNumero').value = '';
                 document.getElementById('premio').value = '';
-                document.getElementById('premiosAdicionales').value = '';
-                document.getElementById('configInfo').style.display = 'none';
                 mostrarMensaje('Todos los datos han sido eliminados');
                 actualizar();
             }
         };
 
-        // Inicializar
         window.addEventListener('load', () => {
             actualizar();
-            mostrarInfoRifa();
         });
     </script>
 </body>
