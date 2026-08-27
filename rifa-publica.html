@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compra tu Número - Rifa</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 20px; }
+        .container { max-width: 900px; margin: 0 auto; }
+        .header { text-align: center; color: white; margin-bottom: 30px; }
+        .header h1 { font-size: 2.5em; margin-bottom: 10px; }
+        .info-rifa { background: white; border-radius: 10px; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); margin-bottom: 20px; }
+        .info-item { margin-bottom: 15px; }
+        .info-item label { color: #667eea; font-weight: 600; display: block; margin-bottom: 5px; }
+        .info-item value { color: #333; font-size: 1.1em; }
+        .card { background: white; border-radius: 10px; padding: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); margin-bottom: 20px; }
+        .card h2 { color: #667eea; margin-bottom: 20px; font-size: 1.5em; border-bottom: 2px solid #667eea; padding-bottom: 10px; }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 5px; color: #333; font-weight: 600; }
+        .form-group input { width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 5px; font-size: 1em; }
+        .form-group input:focus { outline: none; border-color: #667eea; }
+        .numeros-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(50px, 1fr)); gap: 8px; margin-top: 20px; }
+        .numero-btn { aspect-ratio: 1; display: flex; align-items: center; justify-content: center; border: 2px solid #e0e0e0; border-radius: 8px; background: #f9f9f9; cursor: pointer; font-weight: 600; transition: all 0.3s; font-size: 0.9em; }
+        .numero-btn:hover:not(.vendido) { border-color: #667eea; background: #f0f0ff; transform: scale(1.05); }
+        .numero-btn.vendido { background: #ccc; color: #666; border-color: #ccc; cursor: not-allowed; opacity: 0.6; }
+        .numero-btn.seleccionado { background: #4caf50; color: white; border-color: #4caf50; box-shadow: 0 0 10px rgba(76, 175, 80, 0.5); }
+        button { padding: 12px 20px; border: none; border-radius: 5px; font-size: 1em; font-weight: 600; cursor: pointer; transition: all 0.3s; width: 100%; background: #667eea; color: white; }
+        button:hover { background: #5568d3; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4); }
+        .mensaje { padding: 15px; margin: 15px 0; border-radius: 5px; text-align: center; font-weight: 600; }
+        .mensaje.exito { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .mensaje.error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top: 20px; }
+        .stat-box { background: #f5f5f5; padding: 15px; border-radius: 5px; text-align: center; }
+        .stat-box .number { font-size: 2em; font-weight: bold; color: #667eea; }
+        .stat-box .label { color: #666; font-size: 0.9em; margin-top: 5px; }
+        .ayuda { background: #fff3cd; border: 1px solid #ffc107; padding: 15px; border-radius: 5px; margin-bottom: 20px; color: #856404; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎲 Compra tu Número</h1>
+            <p>Selecciona un número disponible y regístrate</p>
+        </div>
+
+        <div class="info-rifa">
+            <div class="info-item">
+                <label>📋 Rifa:</label>
+                <div class="info-item" id="nombreRifaDisplay">Cargando...</div>
+            </div>
+            <div class="info-item">
+                <label>🎁 Premio:</label>
+                <div id="premioDisplay">Cargando...</div>
+            </div>
+            <div class="info-item">
+                <label>📅 Fecha del Sorteo:</label>
+                <div id="fechaDisplay">Cargando...</div>
+            </div>
+            <div class="info-item">
+                <label>💰 Valor por Número:</label>
+                <div id="valorDisplay">Cargando...</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>📝 Regístrate</h2>
+            
+            <div class="ayuda">
+                ⓘ <strong>Instrucciones:</strong> Ingresa tu nombre completo, selecciona un número disponible (sin sombrear) y presiona "Comprar Número"
+            </div>
+
+            <div class="form-group">
+                <label for="nombreComprador">Tu Nombre:</label>
+                <input type="text" id="nombreComprador" placeholder="Ingresa tu nombre completo">
+            </div>
+
+            <div id="mensaje"></div>
+
+            <div class="stats">
+                <div class="stat-box">
+                    <div class="number" id="disponibles">100</div>
+                    <div class="label">Disponibles</div>
+                </div>
+                <div class="stat-box">
+                    <div class="number" id="vendidos">0</div>
+                    <div class="label">Vendidos</div>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 20px; color: #667eea; margin-bottom: 15px;">Selecciona tu Número (00-99):</h3>
+            <div class="numeros-grid" id="numerosGrid"></div>
+
+            <button onclick="comprarNumero()" style="margin-top: 20px;">✅ Comprar Número</button>
+        </div>
+
+        <div class="card">
+            <h2>📊 Números Disponibles</h2>
+            <p id="infoDisponibles" style="color: #666;">Cargando...</p>
+        </div>
+    </div>
+
+    <script>
+        let numeroSeleccionado = null;
+
+        const cargarConfiguracion = () => {
+            const datos = JSON.parse(localStorage.getItem('rifaDatos')) || {
+                config: { nombre: '', fecha: '', valor: 0, premio: '' },
+                participantes: []
+            };
+            return datos;
+        };
+
+        const mostrarMensaje = (texto, tipo = 'exito') => {
+            const div = document.getElementById('mensaje');
+            div.textContent = texto;
+            div.className = `mensaje ${tipo}`;
+            setTimeout(() => div.className = '', 3000);
+        };
+
+        const actualizarInfo = () => {
+            const datos = cargarConfiguracion();
+            const { config } = datos;
+
+            document.getElementById('nombreRifaDisplay').textContent = config.nombre || 'Sin nombre';
+            document.getElementById('premioDisplay').textContent = config.premio || 'No especificado';
+            document.getElementById('valorDisplay').textContent = config.valor ? `$${config.valor.toLocaleString()}` : 'No especificado';
+            
+            if (config.fecha) {
+                const fecha = new Date(config.fecha);
+                document.getElementById('fechaDisplay').textContent = fecha.toLocaleDateString('es-CO');
+            } else {
+                document.getElementById('fechaDisplay').textContent = 'No especificada';
+            }
+        };
+
+        const construirGrid = () => {
+            const datos = cargarConfiguracion();
+            const numerosVendidos = new Set(datos.participantes.map(p => p.numero));
+            const grid = document.getElementById('numerosGrid');
+            grid.innerHTML = '';
+
+            for (let i = 0; i < 100; i++) {
+                const num = i.toString().padStart(2, '0');
+                const btn = document.createElement('button');
+                btn.style.flex = '0 0 calc(10% - 6.4px)';
+                btn.style.padding = '0';
+                
+                if (numerosVendidos.has(num)) {
+                    btn.className = 'numero-btn vendido';
+                    btn.textContent = num;
+                    btn.disabled = true;
+                    btn.onclick = null;
+                } else {
+                    btn.className = 'numero-btn';
+                    btn.textContent = num;
+                    btn.onclick = () => seleccionarNumero(i, btn);
+                }
+                grid.appendChild(btn);
+            }
+
+            actualizarEstadisticas();
+        };
+
+        const seleccionarNumero = (numero, btn) => {
+            // Deseleccionar anterior
+            document.querySelectorAll('.numero-btn.seleccionado').forEach(b => {
+                b.classList.remove('seleccionado');
+            });
+
+            // Seleccionar nuevo
+            numeroSeleccionado = numero;
+            btn.classList.add('seleccionado');
+            document.getElementById('nombreComprador').focus();
+        };
+
+        const comprarNumero = () => {
+            const nombre = document.getElementById('nombreComprador').value.trim();
+            
+            if (!nombre) {
+                mostrarMensaje('Por favor ingresa tu nombre', 'error');
+                return;
+            }
+
+            if (numeroSeleccionado === null) {
+                mostrarMensaje('Por favor selecciona un número', 'error');
+                return;
+            }
+
+            const numero = numeroSeleccionado.toString().padStart(2, '0');
+            const datos = cargarConfiguracion();
+
+            if (datos.participantes.some(p => p.numero === numero)) {
+                mostrarMensaje('Este número ya fue comprado', 'error');
+                return;
+            }
+
+            datos.participantes.push({
+                numero: numero,
+                nombre: nombre,
+                valor: datos.config.valor,
+                pagado: false
+            });
+
+            localStorage.setItem('rifaDatos', JSON.stringify(datos));
+            mostrarMensaje(`✅ ¡Número ${numero} comprado a nombre de ${nombre}!`);
+            document.getElementById('nombreComprador').value = '';
+            numeroSeleccionado = null;
+            construirGrid();
+        };
+
+        const actualizarEstadisticas = () => {
+            const datos = cargarConfiguracion();
+            const vendidos = datos.participantes.length;
+            const disponibles = 100 - vendidos;
+
+            document.getElementById('vendidos').textContent = vendidos;
+            document.getElementById('disponibles').textContent = disponibles;
+
+            const numerosDisponibles = [];
+            for (let i = 0; i < 100; i++) {
+                const num = i.toString().padStart(2, '0');
+                if (!datos.participantes.some(p => p.numero === num)) {
+                    numerosDisponibles.push(num);
+                }
+            }
+
+            document.getElementById('infoDisponibles').textContent = `Números disponibles: ${numerosDisponibles.join(', ')}`;
+        };
+
+        window.addEventListener('load', () => {
+            actualizarInfo();
+            construirGrid();
+        });
+    </script>
+</body>
+</html>
